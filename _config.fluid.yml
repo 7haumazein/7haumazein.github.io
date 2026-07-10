@@ -10,7 +10,15 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "links", name: "友链", link: "/links/", icon: "iconfont icon-link-fill" }
-    - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
+    - key: "about"
+      name: "关于"
+      icon: "iconfont icon-user-fill"
+      submenu:
+        - { key: "about", name: "关于我", link: "/about/", icon: "iconfont icon-user-fill" }
+        - { key: "dessertmap", name: "甜品地图", link: "/dessertmap/", icon: "iconfont icon-map" }
+
+custom_css:
+  - /css/custom.css
 
 index:
   banner_img: /img/home-banner.png
