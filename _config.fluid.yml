@@ -1,0 +1,49 @@
+# Fluid theme custom settings
+favicon: /img/favicon-cropped.png
+apple_touch_icon: /img/favicon-cropped.png
+
+navbar:
+  blog_title: "Thaumazein‘s Blog"
+  menu:
+    - { key: "home", link: "/", icon: "iconfont icon-home-fill" }
+    - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
+    - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
+    - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
+    - { key: "links", name: "友链", link: "/links/", icon: "iconfont icon-link-fill" }
+    - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
+
+index:
+  banner_img: /img/home-banner.png
+  slogan:
+    text: "欢迎来到索秘斯的个人空间"
+
+about:
+  banner_img: /img/about-banner.png
+  name: "索秘斯"
+  avatar: /img/avatar.jpg
+  intro: "almost everything about me and my life"
+
+links:
+  banner_img: /img/links-banner.png
+  items:
+    - {
+      title: "instina's Blog",
+      intro: "粥粥熬佬的个人博客",
+      link: "https://istinaa.github.io/",
+      avatar: "https://github.com/istinaa.png"
+    }
+    - {
+      title: "pppphop's Blog",
+      intro: "月月鸟佬的学习博客",
+      link: "https://pppphop.github.io/",
+      avatar: "/img/pppphop-avatar.jpg"
+    }
+
+archive:
+  banner_img: /img/archive-banner.png
+
+category:
+  banner_img: /img/category-banner.png
+
+tag:
+  banner_img: /img/tag-banner.png
