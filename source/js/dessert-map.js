@@ -10,7 +10,11 @@
     { name: 'LES MORILLES', coordinates: [39.9598, 116.4714] },
     { name: 'leguan蛋糕', coordinates: [39.9657, 116.4215] },
     { name: 'T-FOUR', coordinates: [39.9112, 116.4635] },
-    { name: 'didilato', coordinates: [39.9400, 116.3913] }
+    { name: 'didilato', coordinates: [39.9400, 116.3913] },
+    { name: 'pichoco', coordinates: [39.9270, 116.4126] },
+    { name: 'Darling U', coordinates: [39.9254, 116.4113] },
+    { name: 'Lechouchoü', coordinates: [39.9213, 116.4621] },
+    { name: 'L3mon ONE', coordinates: [39.9987, 116.4798] }
   ];
 
   function initializeMap() {
