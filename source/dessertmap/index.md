@@ -7,8 +7,11 @@ banner_img_height: 60
 ---
 
 <div class="dessert-map-intro">
-  <h2>北京甜品地图</h2>
+  <h2>DessertMap</h2>
   <p class="mb-0">一份持续更新的北京甜品收藏地图。</p>
 </div>
 
-<div id="dessert-map" aria-label="北京甜品店地图"></div>
+<div class="dessert-map-shell">
+  <div id="dessert-map" aria-label="北京甜品店地图"></div>
+  <div id="dessert-review-overlay" class="dessert-review-overlay" aria-live="polite"></div>
+</div>

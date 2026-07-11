@@ -45,10 +45,15 @@ html[data-user-color-scheme='dark'] .dessert-map-intro {
   background: rgba(37, 45, 56, 0.88);
 }
 
+.dessert-map-shell {
+  position: relative;
+  z-index: 1;
+  margin: 2rem 0;
+}
+
 #dessert-map {
   height: min(68vh, 42rem);
   min-height: 28rem;
-  margin: 2rem 0;
   border-radius: 0.75rem;
   overflow: hidden;
   box-shadow: 0 0.5rem 1.5rem rgba(31, 49, 68, 0.16);
@@ -64,23 +69,28 @@ html[data-user-color-scheme='dark'] .dessert-map-intro {
   transform: rotate(-45deg);
 }
 
-.dessert-review-tooltip {
+.dessert-review-overlay {
+  position: absolute;
+  z-index: 2000;
   width: 19rem;
   max-width: calc(100vw - 3rem);
-  padding: 0;
-  border: 0;
-  border-radius: 0.55rem;
-  background: transparent;
-  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.24);
+  pointer-events: none;
+  visibility: hidden;
+  transform: translate(-50%, -100%);
 }
 
-.dessert-review-tooltip::before {
-  border-top-color: #2f4154;
+.dessert-review-overlay.is-visible {
+  visibility: visible;
+}
+
+.dessert-review-overlay.is-below {
+  transform: translate(-50%, 0);
 }
 
 .dessert-review-card {
   overflow: hidden;
   border-radius: 0.55rem;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.24);
 }
 
 .dessert-review-title {
@@ -99,8 +109,11 @@ html[data-user-color-scheme='dark'] .dessert-map-intro {
 }
 
 @media (max-width: 575px) {
+  .dessert-map-shell {
+    margin: 1.5rem -0.5rem;
+  }
+
   #dessert-map {
     min-height: 24rem;
-    margin: 1.5rem -0.5rem;
   }
 }

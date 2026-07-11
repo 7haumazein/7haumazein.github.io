@@ -33,7 +33,9 @@
 
   function initializeMap() {
     var container = document.getElementById('dessert-map');
-    if (!container || !window.L || container.dataset.initialized) return;
+    var overlay = document.getElementById('dessert-review-overlay');
+    var shell = container && container.parentElement;
+    if (!container || !overlay || !shell || !window.L || container.dataset.initialized) return;
 
     container.dataset.initialized = 'true';
 
@@ -55,23 +57,43 @@
       tooltipAnchor: [0, -19]
     });
 
+    function hideReview() {
+      overlay.classList.remove('is-visible', 'is-below');
+    }
+
+    function showReview(store) {
+      var point = map.latLngToContainerPoint(store.coordinates);
+      overlay.innerHTML = reviewCard(store);
+      overlay.classList.remove('is-below');
+      overlay.classList.add('is-visible');
+
+      var halfWidth = overlay.offsetWidth / 2;
+      var left = Math.max(halfWidth + 8, Math.min(point.x, shell.clientWidth - halfWidth - 8));
+      overlay.style.left = left + 'px';
+      overlay.style.top = (point.y - 20) + 'px';
+
+      if (point.y - 20 - overlay.offsetHeight < 0) {
+        overlay.classList.add('is-below');
+        overlay.style.top = (point.y + 20) + 'px';
+      }
+    }
+
     var bounds = [];
     stores.forEach(function (store) {
       bounds.push(store.coordinates);
       var marker = window.L.marker(store.coordinates, { icon: pin, title: store.name })
-        .addTo(map)
-        .bindTooltip(reviewCard(store), {
-          direction: 'top',
-          opacity: 1,
-          interactive: true,
-          className: 'dessert-review-tooltip'
-        });
+        .addTo(map);
 
+      marker.on('mouseover', function () {
+        showReview(store);
+      });
+      marker.on('mouseout', hideReview);
       marker.on('click', function () {
-        marker.openTooltip();
+        showReview(store);
       });
     });
 
+    map.on('movestart', hideReview);
     map.fitBounds(bounds, { padding: [36, 36], maxZoom: 13 });
   }
 
