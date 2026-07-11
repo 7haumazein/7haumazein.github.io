@@ -23,7 +23,7 @@ custom_css:
 
 custom_js:
   - https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
-  - /js/dessert-map.js
+  - /js/dessert-map-v2.js
 
 index:
   banner_img: /img/home-banner.png
