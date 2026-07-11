@@ -120,6 +120,58 @@ html[data-user-color-scheme='dark'] .dessert-map-intro {
   text-align: center;
 }
 
+:root {
+  --click-effect-ring: rgba(47, 65, 84, 0.62);
+  --click-effect-spark: rgba(184, 143, 78, 0.76);
+}
+
+html[data-user-color-scheme='dark'] {
+  --click-effect-ring: rgba(166, 202, 201, 0.65);
+  --click-effect-spark: rgba(229, 191, 124, 0.8);
+}
+
+.click-effect-ring,
+.click-effect-spark {
+  position: fixed;
+  z-index: 3000;
+  pointer-events: none;
+}
+
+.click-effect-ring {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1px solid var(--click-effect-ring);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: click-effect-ring 0.58s ease-out forwards;
+}
+
+.click-effect-spark {
+  width: 0.22rem;
+  height: 0.22rem;
+  border-radius: 50%;
+  background: var(--click-effect-spark);
+  transform: translate(-50%, -50%);
+  animation: click-effect-spark 0.62s ease-out forwards;
+}
+
+@keyframes click-effect-ring {
+  from { opacity: 0.8; transform: translate(-50%, -50%) scale(0.65); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(5); }
+}
+
+@keyframes click-effect-spark {
+  from { opacity: 0.72; }
+  to { opacity: 0; transform: translate(calc(-50% + var(--spark-x)), calc(-50% + var(--spark-y))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .click-effect-ring,
+  .click-effect-spark {
+    display: none;
+  }
+}
+
 @media (max-width: 575px) {
   .dessert-map-shell {
     margin: 1.5rem -0.5rem;

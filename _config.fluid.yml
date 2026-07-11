@@ -25,6 +25,7 @@ custom_js:
   - https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
   - /js/dessert-map-v2.js
   - /js/site-runtime.js
+  - /js/click-effects.js
 
 footer:
   content: '<span id="site-runtime" aria-label="网站存活时间"></span>'
