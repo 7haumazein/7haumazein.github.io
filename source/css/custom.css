@@ -178,7 +178,8 @@ html[data-user-color-scheme='dark'] .click-magic-circle {
 
 @media (prefers-reduced-motion: reduce) {
   .click-magic-circle {
-    display: none;
+    animation: none;
+    opacity: 0.82;
   }
 }
 

@@ -13,9 +13,9 @@
     }, 850);
   }
 
-  document.addEventListener('click', function (event) {
-    if (event.button !== 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (event.target.closest('a, button, input, textarea, select, label, .leaflet-container')) return;
+  document.addEventListener('pointerdown', function (event) {
+    if (event.button !== 0) return;
+    if (event.target.closest('input, textarea, select, label, .leaflet-container')) return;
 
     addMagicCircle(event.clientX, event.clientY);
   });
