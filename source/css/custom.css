@@ -108,6 +108,18 @@ html[data-user-color-scheme='dark'] .dessert-map-intro {
   background: #fff;
 }
 
+.dessert-map-views,
+#site-runtime {
+  color: var(--sec-text-color);
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+}
+
+.dessert-map-views {
+  margin: 1.2rem 0 0;
+  text-align: center;
+}
+
 @media (max-width: 575px) {
   .dessert-map-shell {
     margin: 1.5rem -0.5rem;
