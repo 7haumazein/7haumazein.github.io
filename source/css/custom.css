@@ -64,17 +64,38 @@ html[data-user-color-scheme='dark'] .dessert-map-intro {
   transform: rotate(-45deg);
 }
 
-.dessert-map-tooltip {
-  padding: 0.35rem 0.55rem;
+.dessert-review-tooltip {
+  width: 19rem;
+  max-width: calc(100vw - 3rem);
+  padding: 0;
   border: 0;
-  border-radius: 0.35rem;
-  color: #fff;
-  background: rgba(31, 49, 68, 0.96);
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.18);
+  border-radius: 0.55rem;
+  background: transparent;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.24);
 }
 
-.dessert-map-tooltip::before {
-  border-top-color: rgba(31, 49, 68, 0.96);
+.dessert-review-tooltip::before {
+  border-top-color: #2f4154;
+}
+
+.dessert-review-card {
+  overflow: hidden;
+  border-radius: 0.55rem;
+}
+
+.dessert-review-title {
+  padding: 0.65rem 0.85rem;
+  color: #fff;
+  font-weight: 500;
+  background: #2f4154;
+}
+
+.dessert-review-body {
+  padding: 0.8rem 0.85rem;
+  color: #3c4858;
+  line-height: 1.65;
+  white-space: normal;
+  background: #fff;
 }
 
 @media (max-width: 575px) {
