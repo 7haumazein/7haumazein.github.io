@@ -20,7 +20,7 @@
     container.dataset.initialized = 'true';
 
     var map = window.L.map(container, {
-      scrollWheelZoom: false,
+      scrollWheelZoom: true,
       zoomControl: true
     });
 
