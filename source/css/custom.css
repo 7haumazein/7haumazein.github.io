@@ -44,3 +44,42 @@
 html[data-user-color-scheme='dark'] .dessert-map-intro {
   background: rgba(37, 45, 56, 0.88);
 }
+
+#dessert-map {
+  height: min(68vh, 42rem);
+  min-height: 28rem;
+  margin: 2rem 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 1.5rem rgba(31, 49, 68, 0.16);
+}
+
+.dessert-map-pin {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 0.2rem solid #fff;
+  border-radius: 50% 50% 50% 0;
+  background: #2f4154;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.28);
+  transform: rotate(-45deg);
+}
+
+.dessert-map-tooltip {
+  padding: 0.35rem 0.55rem;
+  border: 0;
+  border-radius: 0.35rem;
+  color: #fff;
+  background: rgba(31, 49, 68, 0.96);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.18);
+}
+
+.dessert-map-tooltip::before {
+  border-top-color: rgba(31, 49, 68, 0.96);
+}
+
+@media (max-width: 575px) {
+  #dessert-map {
+    min-height: 24rem;
+    margin: 1.5rem -0.5rem;
+  }
+}

@@ -18,7 +18,12 @@ navbar:
         - { key: "dessertmap", name: "甜品地图", link: "/dessertmap/", icon: "iconfont icon-map" }
 
 custom_css:
+  - https://unpkg.com/leaflet@1.9.4/dist/leaflet.css
   - /css/custom.css
+
+custom_js:
+  - https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
+  - /js/dessert-map.js
 
 index:
   banner_img: /img/home-banner.png
