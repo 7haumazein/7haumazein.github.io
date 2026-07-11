@@ -176,12 +176,6 @@ html[data-user-color-scheme='dark'] .click-magic-circle {
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.35) rotate(54deg); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .click-magic-circle {
-    animation: none;
-    opacity: 0.82;
-  }
-}
 
 @media (max-width: 575px) {
   .dessert-map-shell {
