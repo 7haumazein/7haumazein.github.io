@@ -120,54 +120,64 @@ html[data-user-color-scheme='dark'] .dessert-map-intro {
   text-align: center;
 }
 
-:root {
-  --click-effect-ring: rgba(47, 65, 84, 0.62);
-  --click-effect-spark: rgba(184, 143, 78, 0.76);
-}
-
-html[data-user-color-scheme='dark'] {
-  --click-effect-ring: rgba(166, 202, 201, 0.65);
-  --click-effect-spark: rgba(229, 191, 124, 0.8);
-}
-
-.click-effect-ring,
-.click-effect-spark {
+.click-magic-circle {
+  --magic-circle-color: rgba(47, 65, 84, 0.78);
   position: fixed;
   z-index: 3000;
   pointer-events: none;
-}
-
-.click-effect-ring {
-  width: 0.8rem;
-  height: 0.8rem;
-  border: 1px solid var(--click-effect-ring);
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 1px solid var(--magic-circle-color);
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: click-effect-ring 0.58s ease-out forwards;
+  box-shadow: 0 0 0.45rem rgba(47, 65, 84, 0.18);
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: click-magic-circle 0.78s ease-out forwards;
 }
 
-.click-effect-spark {
-  width: 0.22rem;
-  height: 0.22rem;
+.click-magic-circle::before {
+  position: absolute;
+  content: '';
+  inset: 0.42rem;
+  border: 1px solid var(--magic-circle-color);
   border-radius: 50%;
-  background: var(--click-effect-spark);
-  transform: translate(-50%, -50%);
-  animation: click-effect-spark 0.62s ease-out forwards;
 }
 
-@keyframes click-effect-ring {
-  from { opacity: 0.8; transform: translate(-50%, -50%) scale(0.65); }
-  to { opacity: 0; transform: translate(-50%, -50%) scale(5); }
+.click-magic-circle::before {
+  opacity: 0.75;
 }
 
-@keyframes click-effect-spark {
-  from { opacity: 0.72; }
-  to { opacity: 0; transform: translate(calc(-50% + var(--spark-x)), calc(-50% + var(--spark-y))); }
+.click-magic-circle span {
+  position: absolute;
+  inset: 0.88rem;
+  border: 1px solid var(--magic-circle-color);
+  border-radius: 0.1rem;
+}
+
+.click-magic-circle span:nth-child(1) {
+  transform: rotate(0deg);
+}
+
+.click-magic-circle span:nth-child(2) {
+  transform: rotate(30deg);
+}
+
+.click-magic-circle span:nth-child(3) {
+  transform: rotate(60deg);
+}
+
+html[data-user-color-scheme='dark'] .click-magic-circle {
+  --magic-circle-color: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 0 0.8rem rgba(255, 255, 255, 0.5);
+}
+
+@keyframes click-magic-circle {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.55) rotate(-18deg); }
+  20% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.35) rotate(54deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .click-effect-ring,
-  .click-effect-spark {
+  .click-magic-circle {
     display: none;
   }
 }
