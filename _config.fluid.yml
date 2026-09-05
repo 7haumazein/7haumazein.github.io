@@ -62,6 +62,14 @@ archive:
 
 post:
   banner_img: /img/archive-banner.png
+  meta:
+    wordcount:
+      enable: false
+    min2read:
+      enable: false
+    views:
+      enable: true
+      source: busuanzi
   copyright:
     enable: false
 
