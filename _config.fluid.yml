@@ -60,12 +60,13 @@ links:
 archive:
   banner_img: /img/archive-banner.png
 
+post:
+  banner_img: /img/archive-banner.png
+  copyright:
+    enable: false
+
 category:
   banner_img: /img/category-banner.png
 
 tag:
   banner_img: /img/tag-banner.png
-
-post:
-  copyright:
-    enable: false
