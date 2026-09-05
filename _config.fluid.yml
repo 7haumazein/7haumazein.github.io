@@ -65,3 +65,7 @@ category:
 
 tag:
   banner_img: /img/tag-banner.png
+
+post:
+  copyright:
+    enable: false
