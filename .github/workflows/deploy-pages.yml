@@ -30,6 +30,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Fetch public market snapshot
+        continue-on-error: true
         run: python -m collector.cloud_publish public/daily-data
       - name: Build the site
         run: npm run build
