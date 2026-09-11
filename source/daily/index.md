@@ -35,8 +35,6 @@ banner_img_height: 60
     <div class="daily-section-heading"><h3>实时榜单</h3><span id="live-time">--</span></div>
     <div class="daily-segmented daily-live-tabs" role="group" aria-label="实时榜单类型">
       <button type="button" class="is-active" data-live-board="gainers">五分钟涨幅</button>
-      <button type="button" data-live-board="decliners">五分钟跌幅</button>
-      <button type="button" data-live-board="daily">当日涨幅</button>
     </div>
     <div id="live-board" class="daily-table-wrap"></div>
   </section>
@@ -45,7 +43,7 @@ banner_img_height: 60
     <div class="daily-section-heading"><h3 id="report-heading">收盘版</h3><span id="report-time">--</span></div>
     <div class="daily-report-grid">
       <article class="daily-report-card"><h4>A榜 · 当日涨幅前30</h4><div id="daily-board"></div><div id="daily-sectors" class="daily-sectors"></div></article>
-      <article class="daily-report-card"><h4>B榜 · 五分钟高频前30</h4><div id="frequency-board"></div><div id="frequency-sectors" class="daily-sectors"></div></article>
+      <article class="daily-report-card"><h4>B榜 · 五分钟涨幅高频前30</h4><div id="frequency-board"></div><div id="frequency-sectors" class="daily-sectors"></div></article>
     </div>
   </section>
 

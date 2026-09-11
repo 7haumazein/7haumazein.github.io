@@ -12,6 +12,7 @@ class Quote:
     price: Optional[float]
     prev_close: Optional[float]
     amount: Optional[float] = None
+    turnover_rate: Optional[float] = None
     quote_time: Optional[datetime] = None
     industry: Optional[str] = None
     province: Optional[str] = None

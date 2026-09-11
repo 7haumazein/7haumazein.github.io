@@ -5,7 +5,7 @@
 ## 本地验证
 
 1. 安装 Python 3.11+（采集器仅使用标准库）。
-2. 准备一份不含凭据的行情导出 JSON/CSV，字段至少为 `exchange,code,name,price,prev_close`，可选 `amount,quote_time,industry,province,city,status,st`。
+2. 准备一份不含凭据的行情导出 JSON/CSV，字段至少为 `exchange,code,name,price,prev_close`，可选 `amount,turnover_rate,quote_time,industry,province,city,status,st`。
 3. 运行 `python -m collector.cli probe path/to/export.csv`，检查解析和确定性榜单。
 4. 将真实采样组装为 `collector.report.build_report(...)`，使用 `collector.publish.publish_report(...)` 原子发布到只读数据目录。
 5. 将该数据目录映射为博客页面的 `/daily-data/`；页面会读取 `latest.json` 和 `reports/index.json`。

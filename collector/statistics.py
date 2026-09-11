@@ -20,8 +20,8 @@ def rank_daily(quotes: Iterable, limit: int = 30):
         rows.append({"key": q.key, "exchange": q.exchange, "code": q.code.zfill(6),
                      "name": q.name, "industry": q.industry, "province": q.province,
                      "city": q.city, "change_pct": round(change, 4),
-                     "amount": q.amount or 0, "st": q.st, "status": q.status})
-    rows.sort(key=lambda x: (-x["change_pct"], -x["amount"], x["key"]))
+                     "turnover_rate": q.turnover_rate, "st": q.st, "status": q.status})
+    rows.sort(key=lambda x: (-x["change_pct"], -(x["turnover_rate"] or 0), x["key"]))
     for index, row in enumerate(rows[:limit], 1):
         row["rank"] = index
     return rows[:limit]
@@ -36,8 +36,8 @@ def rank_daily_decliners(quotes: Iterable, limit: int = 30):
         rows.append({"key": q.key, "exchange": q.exchange, "code": q.code.zfill(6),
                      "name": q.name, "industry": q.industry, "province": q.province,
                      "city": q.city, "change_pct": round(change, 4),
-                     "amount": q.amount or 0, "st": q.st, "status": q.status})
-    rows.sort(key=lambda x: (x["change_pct"], -x["amount"], x["key"]))
+                     "turnover_rate": q.turnover_rate, "st": q.st, "status": q.status})
+    rows.sort(key=lambda x: (x["change_pct"], -(x["turnover_rate"] or 0), x["key"]))
     for index, row in enumerate(rows[:limit], 1):
         row["rank"] = index
     return rows[:limit]
@@ -56,8 +56,8 @@ def rank_five_minute(quotes: Iterable, previous_prices: Mapping[str, float], lim
         rows.append({"key": q.key, "exchange": q.exchange, "code": q.code.zfill(6),
                      "name": q.name, "industry": q.industry, "province": q.province,
                      "city": q.city, "change_pct": round(change, 4),
-                     "amount": q.amount or 0, "st": q.st, "status": q.status})
-    rows.sort(key=lambda x: (-x["change_pct"], -x["amount"], x["key"]))
+                     "turnover_rate": q.turnover_rate, "st": q.st, "status": q.status})
+    rows.sort(key=lambda x: (-x["change_pct"], -(x["turnover_rate"] or 0), x["key"]))
     for index, row in enumerate(rows[:limit], 1):
         row["rank"] = index
     return rows[:limit]

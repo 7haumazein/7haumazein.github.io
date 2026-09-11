@@ -13,11 +13,12 @@ from pathlib import Path
 from .models import Quote
 from .report import build_latest, build_report
 from .publish import publish_report, write_json
+from .statistics import frequency_board
 
 URL = "https://push2.eastmoney.com/api/qt/clist/get?" + urllib.parse.urlencode({
     "pn": 1, "pz": 6000, "po": 1, "np": 1, "fltt": 2, "invt": 2,
     "fid": "f3", "fs": "m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23",
-    "fields": "f2,f3,f6,f12,f13,f14",
+    "fields": "f2,f3,f6,f8,f12,f13,f14,f100,f102,f103",
 })
 
 
@@ -38,8 +39,15 @@ def fetch(timeout=20):
             prev = price / (1 + change / 100) if change is not None and change != -100 else None
         except (TypeError, ValueError, ZeroDivisionError):
             continue
+        def number(field):
+            try:
+                return float(row[field]) if row.get(field) not in (None, "-") else None
+            except (TypeError, ValueError):
+                return None
         quotes.append(Quote(market, code, str(row.get("f14") or code), price, prev,
-                            amount=float(row["f6"]) if row.get("f6") not in (None, "-") else None))
+                            amount=number("f6"), turnover_rate=number("f8"),
+                            industry=row.get("f100") or None, province=row.get("f102") or None,
+                            city=row.get("f103") or None))
     return quotes
 
 
@@ -50,11 +58,33 @@ def main():
         quotes = fetch()
         if not quotes:
             raise RuntimeError("public endpoint returned no A-share rows")
-        latest = build_latest(quotes, provider="eastmoney-public", quote_time=now,
+        previous = {}
+        history_url = "https://7haumazein.github.io/daily-data/latest.json"
+        try:
+            with urllib.request.urlopen(history_url, timeout=5) as response:
+                previous = json.loads(response.read().decode("utf-8"))
+        except Exception:
+            previous = {}
+        prior_prices = {row.get("key"): row.get("price") for row in previous.get("quotes", []) if row.get("key")}
+        slots = list(previous.get("frequency_slots", []))[-78:]
+        latest = build_latest(quotes, five_minute_previous=prior_prices, provider="eastmoney-public", quote_time=now,
                               coverage_pct=min(100, round(len(quotes) / 5000 * 100, 2)))
+        counts = dict(previous.get("frequency_counts", {}))
+        for row in latest["five_minute_gainers"]:
+            counts[row["key"]] = counts.get(row["key"], 0) + 1
+        info = {q.key: {"name": q.name, "code": q.code, "exchange": q.exchange,
+                        "industry": q.industry, "province": q.province, "city": q.city}
+                for q in quotes}
+        latest["frequency_counts"] = counts
+        latest["frequency_board"] = frequency_board(
+            {key: {"count": value, "rank_points": 0, "rank_sum": 0}
+             for key, value in counts.items()}, info, max(1, len(slots) + 1))
+        latest["quotes"] = [{"key": q.key, "price": q.price} for q in quotes]
+        latest["frequency_slots"] = slots + [{"time": now.isoformat(), "keys": [x["key"] for x in latest["five_minute_gainers"]]}]
         report_type = "close" if now.hour >= 7 else "noon"
         report = build_report(quotes, report_type=report_type, provider="eastmoney-public",
                               quote_time=now, coverage_pct=latest["coverage_pct"])
+        report["frequency_all"] = latest["frequency_board"]
         write_json(root / "latest.json", latest)
         publish_report(root, report)
         print(json.dumps({"provider": "eastmoney-public", "quotes": len(quotes), "report": report_type}))
@@ -62,7 +92,7 @@ def main():
         latest = {"schema_version": "0.1", "provider": "eastmoney-public",
                   "status": "数据源暂时不可用", "quality": "stale",
                   "error": str(exc)[:200], "fetched_at": now.isoformat(),
-                  "daily_gainers": [], "five_minute_gainers": [], "five_minute_decliners": []}
+                  "daily_gainers": [], "five_minute_gainers": []}
         write_json(root / "latest.json", latest)
         write_json(root / "reports/index.json", {"schema_version": "0.1", "reports": []})
         print(json.dumps(latest, ensure_ascii=False))

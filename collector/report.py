@@ -4,7 +4,7 @@ This module is intentionally pure: collection, publication and any network
 provider remain separate so a failed optional explanation cannot alter rankings.
 """
 from datetime import datetime, timezone
-from .statistics import rank_daily, rank_daily_decliners, rank_five_minute, rank_five_minute_decliners, add_frequency, frequency_board, sector_top
+from .statistics import rank_daily, rank_daily_decliners, rank_five_minute, add_frequency, frequency_board, sector_top
 
 
 def _info(quotes):
@@ -73,5 +73,4 @@ def build_latest(quotes, five_minute_previous=None, provider="unconfigured", quo
         "coverage_pct": coverage_pct, "quality": "complete" if coverage_pct is not None and coverage_pct >= 98 else "partial",
         "status": "实时数据已更新" if quotes else "尚未连接实时数据源",
         "daily_gainers": gainers, "five_minute_gainers": rank_five_minute(quotes, previous),
-        "five_minute_decliners": rank_five_minute_decliners(quotes, previous),
     }
