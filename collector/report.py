@@ -10,6 +10,7 @@ from .statistics import rank_daily, rank_daily_decliners, rank_five_minute, add_
 def _info(quotes):
     return {q.key: {"name": q.name, "code": q.code.zfill(6), "exchange": q.exchange,
                     "industry": q.industry, "province": q.province, "city": q.city,
+                    "turnover_rate": q.turnover_rate,
                     "st": q.st, "status": q.status} for q in quotes}
 
 

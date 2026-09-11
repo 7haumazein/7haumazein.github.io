@@ -24,13 +24,21 @@ URL = "https://push2.eastmoney.com/api/qt/clist/get?" + urllib.parse.urlencode({
 
 def fetch(timeout=20):
     req = urllib.request.Request(URL, headers={"User-Agent": "daily-report/1.0"})
-    with urllib.request.urlopen(req, timeout=timeout) as response:
-        payload = json.loads(response.read().decode("utf-8"))
+    last_error = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            break
+        except Exception as exc:
+            last_error = exc
+            if attempt == 2:
+                raise last_error
     rows = (payload.get("data") or {}).get("diff") or []
     quotes = []
     for row in rows:
         code = str(row.get("f12") or "").zfill(6)
-        market = {1: "SZ", 0: "SH", 2: "BJ"}.get(row.get("f13"))
+        market = {1: "SH", 0: "SZ", 2: "BJ"}.get(row.get("f13"))
         if not market or len(code) != 6 or row.get("f2") in (None, "-"):
             continue
         try:
@@ -69,13 +77,14 @@ def main():
         slots = list(previous.get("frequency_slots", []))[-78:]
         latest = build_latest(quotes, five_minute_previous=prior_prices, provider="eastmoney-public", quote_time=now,
                               coverage_pct=min(100, round(len(quotes) / 5000 * 100, 2)))
-        counts = dict(previous.get("frequency_counts", {}))
+        counts = dict(previous.get("frequency_counts", {})) if previous.get("frequency_date") == now.date().isoformat() else {}
         for row in latest["five_minute_gainers"]:
             counts[row["key"]] = counts.get(row["key"], 0) + 1
         info = {q.key: {"name": q.name, "code": q.code, "exchange": q.exchange,
                         "industry": q.industry, "province": q.province, "city": q.city}
                 for q in quotes}
         latest["frequency_counts"] = counts
+        latest["frequency_date"] = now.date().isoformat()
         latest["frequency_board"] = frequency_board(
             {key: {"count": value, "rank_points": 0, "rank_sum": 0}
              for key, value in counts.items()}, info, max(1, len(slots) + 1))
