@@ -1,0 +1,16 @@
+timezone: Asia/Shanghai
+collector:
+  interval_seconds: 60
+  database: data/daily.sqlite3
+  provider: unconfigured
+  quote_timeout_seconds: 15
+  stale_after_seconds: 120
+  stock_scope: [SSE, SZSE, BSE]
+reports:
+  noon_publish: "11:35"
+  close_publish: "15:10"
+  five_minute_window_seconds: 300
+  ranking_limit: 30
+analysis:
+  enabled: false
+  profiles: []

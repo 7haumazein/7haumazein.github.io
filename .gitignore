@@ -3,3 +3,6 @@ public/
 db.json
 .deploy_git/
 .DS_Store
+__pycache__/
+*.pyc
+.daily-local/
