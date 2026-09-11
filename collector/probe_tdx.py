@@ -25,7 +25,14 @@ def main():
     tq = importlib.import_module('tqcenter').tq
     started = time.monotonic()
     try:
-        tq.initialize(str(Path(__file__).resolve()))
+        try:
+            tq.initialize(str(Path(__file__).resolve()))
+        except Exception as exc:
+            raise SystemExit(
+                "无法连接通达信 TQ 行情接口。请先启动 C:\\new_tdx64\\TdxW.exe，"
+                "完成登录并打开行情后重试；本程序只读取行情，不会代下单。"
+                f" 原始错误: {exc}"
+            ) from exc
         if args.benchmark:
             stocks = tq.get_stock_list('5', list_type=0)
             print(json.dumps({'universe_count': len(stocks), 'sample': stocks[:3]}, ensure_ascii=False), flush=True)
