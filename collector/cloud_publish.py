@@ -15,26 +15,35 @@ from .report import build_latest, build_report
 from .publish import publish_report, write_json
 from .statistics import frequency_board
 
-URL = "https://push2.eastmoney.com/api/qt/clist/get?" + urllib.parse.urlencode({
+QUERY = urllib.parse.urlencode({
     "pn": 1, "pz": 6000, "po": 1, "np": 1, "fltt": 2, "invt": 2,
     "fid": "f3", "fs": "m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23",
     "fields": "f2,f3,f6,f8,f12,f13,f14,f100,f102,f103",
 })
+URLS = ["https://push2.eastmoney.com/api/qt/clist/get?" + QUERY,
+        "https://82.push2.eastmoney.com/api/qt/clist/get?" + QUERY,
+        "https://push2delay.eastmoney.com/api/qt/clist/get?" + QUERY]
 
 
 def fetch(timeout=20):
-    req = urllib.request.Request(URL, headers={"User-Agent": "daily-report/1.0"})
     last_error = None
-    for attempt in range(3):
+    for url in URLS:
+      req = urllib.request.Request(url, headers={"User-Agent": "daily-report/1.0"})
+      for attempt in range(2):
         try:
             with urllib.request.urlopen(req, timeout=timeout) as response:
                 payload = json.loads(response.read().decode("utf-8"))
-            break
+            rows = (payload.get("data") or {}).get("diff") or []
+            if rows:
+                break
+            raise RuntimeError("public endpoint returned no rows")
         except Exception as exc:
             last_error = exc
-            if attempt == 2:
-                raise last_error
-    rows = (payload.get("data") or {}).get("diff") or []
+      else:
+        continue
+      break
+    else:
+        raise last_error
     quotes = []
     for row in rows:
         code = str(row.get("f12") or "").zfill(6)
@@ -102,6 +111,17 @@ def main():
                   "status": "数据源暂时不可用", "quality": "stale",
                   "error": str(exc)[:200], "fetched_at": now.isoformat(),
                   "daily_gainers": [], "five_minute_gainers": []}
+        try:
+            with urllib.request.urlopen("https://7haumazein.github.io/daily-data/latest.json", timeout=5) as response:
+                previous_latest = json.loads(response.read().decode("utf-8"))
+            if previous_latest.get("daily_gainers"):
+                latest.update(previous_latest)
+                latest["status"] = "数据源暂时不可用，显示最近一次有效数据"
+                latest["quality"] = "stale"
+                latest["error"] = str(exc)[:200]
+                latest["fetched_at"] = now.isoformat()
+        except Exception:
+            pass
         write_json(root / "latest.json", latest)
         write_json(root / "reports/index.json", {"schema_version": "0.1", "reports": []})
         print(json.dumps(latest, ensure_ascii=False))
