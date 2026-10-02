@@ -11,7 +11,7 @@
     { name: 'leguan蛋糕', coordinates: [39.9657, 116.4215], review: '暂时相对冷门的一家，很喜欢小店装修，和柠檬挞' },
     { name: 'T-FOUR', coordinates: [39.9112, 116.4635], review: '不太喜欢歌剧院，但百香果慕斯很喜欢，热爱酸甜口' },
     { name: 'didilato', coordinates: [39.9400, 116.3913], review: '经典偏冷门小店，这家是冰淇淋专精，有时候会推出一些很神奇的口味，怪好玩的' },
-    { name: 'pichoco', coordinates: [39.9270, 116.4126], review: '芭菲，好吃，其他没试过' },
+    { name: 'pichoco', coordinates: [39.9270, 116.4126], review: '芭菲好吃，每个月会有一款上新的当月蛋糕，一般是四寸，目前来看都不错' },
     { name: 'Darling U', coordinates: [39.9254, 116.4113], review: '精品率很高的一家，吃过两次他家大蛋糕都很值' },
     { name: 'Lechouchoü', coordinates: [39.9213, 116.4621], review: '夏洛特......夏洛特......（嚼嚼嚼）（空气拿破仑也好吃）' },
     { name: 'L3mon ONE', coordinates: [39.9987, 116.4798], review: '柠檬专精，酸甜口爱好者不可错过的一家' },

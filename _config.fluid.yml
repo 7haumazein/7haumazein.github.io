@@ -59,6 +59,12 @@ links:
       link: "https://pppphop.github.io/",
       avatar: "/img/pppphop-avatar.jpg"
     }
+    - {
+      title: "Kamonto",
+      intro: "Kamonto大人😭",
+      link: "https://kamonto.github.io/Kamonto_blog/",
+      avatar: "https://github.com/kamonto.png"
+    }
 
 archive:
   banner_img: /img/archive-banner.png
