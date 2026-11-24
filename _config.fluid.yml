@@ -15,6 +15,7 @@ navbar:
       icon: "iconfont icon-user-fill"
       submenu:
         - { key: "about", name: "关于我", link: "/about/", icon: "iconfont icon-user-fill" }
+        - { key: "character", name: "个人设定", link: "/character/", icon: "iconfont icon-user-fill" }
         - { key: "dessertmap", name: "甜品地图", link: "/dessertmap/", icon: "iconfont icon-map" }
         - { key: "daily", name: "A股日报", link: "/daily/", icon: "iconfont icon-chart" }
 
